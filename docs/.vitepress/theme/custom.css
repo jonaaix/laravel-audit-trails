@@ -1,0 +1,42 @@
+:root {
+  --vp-c-brand-1: #3a72b8;
+  --vp-c-brand-2: #4a82c8;
+  --vp-c-brand-3: #5994d8;
+  --vp-c-brand-soft: rgba(58, 114, 184, 0.14);
+
+  --vp-button-brand-border: transparent;
+  --vp-button-brand-text: #ffffff;
+  --vp-button-brand-bg: #3a72b8;
+  --vp-button-brand-hover-border: transparent;
+  --vp-button-brand-hover-text: #ffffff;
+  --vp-button-brand-hover-bg: #4a82c8;
+  --vp-button-brand-active-border: transparent;
+  --vp-button-brand-active-text: #ffffff;
+  --vp-button-brand-active-bg: #2a5a9c;
+}
+
+.dark {
+  --vp-c-brand-1: #6ba1d8;
+  --vp-c-brand-2: #5994d8;
+  --vp-c-brand-3: #4a82c8;
+  --vp-c-brand-soft: rgba(94, 154, 220, 0.16);
+}
+
+:root {
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(120deg, #3a72b8 30%, #e87045);
+
+  --vp-home-hero-image-background-image:
+    radial-gradient(circle at 30% 30%, #3a72b8cc 0%, transparent 55%),
+    radial-gradient(circle at 70% 70%, #e87045bb 0%, transparent 55%);
+  --vp-home-hero-image-filter: blur(64px);
+}
+
+.dark {
+  --vp-home-hero-name-background: linear-gradient(120deg, #6ba1d8 30%, #f08a60);
+
+  --vp-home-hero-image-background-image:
+    radial-gradient(circle at 30% 30%, #5994d8dd 0%, transparent 55%),
+    radial-gradient(circle at 70% 70%, #f08a60cc 0%, transparent 55%);
+  --vp-home-hero-image-filter: blur(72px);
+}

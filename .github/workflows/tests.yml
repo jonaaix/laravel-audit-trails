@@ -1,0 +1,31 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: PHP 8.5 - Laravel 13
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          extensions: pdo, sqlite, pdo_sqlite
+          coverage: none
+
+      - name: Install dependencies
+        run: |
+          composer require "illuminate/contracts:13.*" "orchestra/testbench:11.*" --no-interaction --no-update
+          composer update --prefer-dist --no-interaction --no-progress
+
+      - name: Run tests
+        run: vendor/bin/pest
