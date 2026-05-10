@@ -23,9 +23,13 @@ A lightweight Laravel audit-log package — one trait, polymorphic by design, so
 
 ```bash
 composer require aaix/laravel-audit-trails
+
+# Publish the migrations
 php artisan vendor:publish --tag="audit-trails-migrations"
-php artisan vendor:publish --tag="audit-trails-config"
 php artisan migrate
+
+# Optional
+php artisan vendor:publish --tag="audit-trails-config"
 ```
 
 ## Quick start
