@@ -21,7 +21,7 @@ A lightweight Laravel audit-log package — one trait, polymorphic by design, so
 
 ## Installation
 
-```bash
+```shell
 composer require aaix/laravel-audit-trails
 
 # Publish the migrations
