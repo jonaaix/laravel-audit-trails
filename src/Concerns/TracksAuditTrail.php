@@ -13,7 +13,7 @@ trait TracksAuditTrail
 {
     public static function bootTracksAuditTrail(): void
     {
-        static::observe(AuditTrailObserver::class);
+        static::whenBooted(static fn () => static::observe(AuditTrailObserver::class));
     }
 
     public function auditTrails(): MorphMany

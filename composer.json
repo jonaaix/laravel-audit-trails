@@ -23,10 +23,10 @@
         "spatie/laravel-package-tools": "^1.16"
     },
     "require-dev": {
+        "laravel/pint": "^1.18",
         "orchestra/testbench": ">=9.0",
-        "pestphp/pest": "^3.0",
-        "pestphp/pest-plugin-laravel": "^3.0",
-        "laravel/pint": "^1.18"
+        "pestphp/pest": "^3.0 || ^4.0",
+        "pestphp/pest-plugin-laravel": "^3.0 || ^4.1"
     },
     "autoload": {
         "psr-4": {
