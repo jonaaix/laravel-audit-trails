@@ -29,6 +29,7 @@ export default defineConfig({
           { text: 'Installation', link: '/installation' },
           { text: 'Usage', link: '/usage' },
           { text: 'Configuration', link: '/configuration' },
+          { text: 'AI / Laravel Boost', link: '/ai' },
         ],
       },
     ],
