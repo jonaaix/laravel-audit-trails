@@ -23,9 +23,7 @@ jobs:
           coverage: none
 
       - name: Install dependencies
-        run: |
-          composer require "illuminate/contracts:13.*" "orchestra/testbench:11.*" --no-interaction --no-update
-          composer update --prefer-dist --no-interaction --no-progress
+        run: composer update --prefer-dist --no-interaction --no-progress
 
       - name: Run tests
         run: vendor/bin/pest

@@ -44,4 +44,4 @@ Global: `config('audit-trails.ignored_attributes')` — defaults already cover `
 
 - `user_id` is null when no resolver match (e.g. console without override).
 - Extend `Aaix\LaravelAuditTrails\Models\AuditTrail` if overriding via `config('audit-trails.model')` — don't replace.
-- Requires PHP 8.2+ / Laravel 11+.
+- Requires PHP 8.3+ / Laravel 13+.
