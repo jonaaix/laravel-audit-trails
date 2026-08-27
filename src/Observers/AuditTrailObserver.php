@@ -53,13 +53,21 @@ class AuditTrailObserver
         /** @var class-string<AuditTrail> $modelClass */
         $modelClass = config('audit-trails.model', AuditTrail::class);
 
-        $modelClass::create([
+        $audit = new $modelClass([
             'action' => $action->value,
             'auditable_type' => $model->getMorphClass(),
             'auditable_id' => $model->getKey(),
             'user_id' => $this->resolveUserId(),
             'changes_json' => $changes ?: null,
         ]);
+
+        // Hand the audited instance to the audit row as a pre-loaded relation, so
+        // hooks on the audit model can derive columns from it without a lookup.
+        // On a hard delete the row is already gone by the time `deleted` fires —
+        // this instance is the only remaining source of truth.
+        $audit->setRelation('auditable', $model);
+
+        $audit->save();
     }
 
     protected function resolveUserId(): mixed

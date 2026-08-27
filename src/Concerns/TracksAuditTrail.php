@@ -13,7 +13,7 @@ trait TracksAuditTrail
 {
     public static function bootTracksAuditTrail(): void
     {
-        static::whenBooted(static fn () => static::observe(AuditTrailObserver::class));
+        static::whenBooted(static fn () => static::observe(static::resolveAuditTrailObserver()));
     }
 
     public function auditTrails(): MorphMany
@@ -38,6 +38,17 @@ trait TracksAuditTrail
     {
         /** @var class-string<AuditTrail> $class */
         $class = config('audit-trails.model', AuditTrail::class);
+
+        return $class;
+    }
+
+    /**
+     * @return class-string<AuditTrailObserver>
+     */
+    protected static function resolveAuditTrailObserver(): string
+    {
+        /** @var class-string<AuditTrailObserver> $class */
+        $class = config('audit-trails.observer', AuditTrailObserver::class);
 
         return $class;
     }

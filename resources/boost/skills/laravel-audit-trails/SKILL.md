@@ -40,8 +40,21 @@ Global: `config('audit-trails.ignored_attributes')` — defaults already cover `
 
 `delete()` → `Deleted`, `restore()` → `Restored`, `forceDelete()` → `ForceDeleted` only (no leading `Deleted`).
 
+## Derive columns from the audited record
+
+Rows are saved with `auditable` pre-loaded — read it in a `creating` hook on your audit model, never query by `auditable_id`:
+
+```php
+static::creating(fn (self $trail) => $trail->tenant_id = $trail->auditable?->tenant_id);
+```
+
+`deleted` fires after the `DELETE`, so without `SoftDeletes` a lookup returns null and a `NOT NULL` column fails with SQLSTATE 1364.
+
+The relation stays loaded, so `toArray()`/`toJson()` embed the audited record, and `ignored_attributes` does **not** filter it (only the audited model's `$hidden` does). To opt out, call `$trail->unsetRelation('auditable')` at the end of the `creating` hook — not after `save()`, since `created`/`saved` fire inside it.
+
 ## Gotchas
 
 - `user_id` is null when no resolver match (e.g. console without override).
 - Extend `Aaix\LaravelAuditTrails\Models\AuditTrail` if overriding via `config('audit-trails.model')` — don't replace.
+- Same for `config('audit-trails.observer')` — extend `AuditTrailObserver`, override `log()`.
 - Requires PHP 8.3+ / Laravel 13+.

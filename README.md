@@ -43,6 +43,24 @@ class Order extends Model
 }
 ```
 
+## Derive columns from the audited record
+
+Each audit row is saved with the audited model attached as a loaded `auditable` relation, so a `creating` hook can denormalise a column onto the row without a lookup:
+
+```php
+class AuditTrail extends BaseAuditTrail
+{
+    protected static function booted(): void
+    {
+        static::creating(function (self $trail): void {
+            $trail->tenant_id = $trail->auditable?->tenant_id;
+        });
+    }
+}
+```
+
+Don't query by `auditable_id` instead: `deleted` fires *after* the `DELETE`, so for a model without `SoftDeletes` the record is already gone and a `NOT NULL` column fails the insert. The attached instance works for every action, deletes included.
+
 ## Documentation
 
 Full documentation: **[jonaaix.github.io/laravel-audit-trails](https://jonaaix.github.io/laravel-audit-trails)**

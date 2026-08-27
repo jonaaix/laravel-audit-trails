@@ -28,6 +28,38 @@ class AuditTrail extends BaseAuditTrail
 
 Your subclass **must** extend the package model so all relations and casts continue to work.
 
+## `observer`
+
+The observer registered on every audited model. Override it to change which events are recorded, or how a row is built:
+
+```php
+'observer' => \App\Observers\AuditTrailObserver::class,
+```
+
+```php
+namespace App\Observers;
+
+use Aaix\LaravelAuditTrails\Enums\AuditActionEnum;
+use Aaix\LaravelAuditTrails\Observers\AuditTrailObserver as BaseObserver;
+use Illuminate\Database\Eloquent\Model;
+
+class AuditTrailObserver extends BaseObserver
+{
+    protected function log(Model $model, AuditActionEnum $action, array $changes = []): void
+    {
+        if ($model instanceof \App\Models\Ping) {
+            return; // too noisy to audit
+        }
+
+        parent::log($model, $action, $changes);
+    }
+}
+```
+
+Your class **must** extend the package observer. The value is read when an audited model boots, so set it in config rather than swapping it at runtime.
+
+For deriving extra columns, prefer a `creating` hook on the audit model — see [Usage → Derive columns from the audited record](/usage#derive-columns-from-the-audited-record).
+
 ## `table`
 
 Rename the table:

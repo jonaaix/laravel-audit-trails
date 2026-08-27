@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+use Aaix\LaravelAuditTrails\Models\AuditTrail;
+use Aaix\LaravelAuditTrails\Observers\AuditTrailObserver;
+
 return [
 
     /*
@@ -14,7 +17,20 @@ return [
     | add custom relations. Your class must extend the package model.
     |
     */
-    'model' => Aaix\LaravelAuditTrails\Models\AuditTrail::class,
+    'model' => AuditTrail::class,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Audit trail observer
+    |--------------------------------------------------------------------------
+    |
+    | The observer registered on every audited model. Override this to change
+    | which events are recorded or how a row is built — for example to skip
+    | noisy actions or to enrich the payload. Your class must extend the
+    | package observer.
+    |
+    */
+    'observer' => AuditTrailObserver::class,
 
     /*
     |--------------------------------------------------------------------------
